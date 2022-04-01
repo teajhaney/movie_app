@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/constant.dart';
 import 'package:movie_app/models/movie_detail.dart';
+import 'package:movie_app/screens/screens.dart';
 import 'dart:math' as math;
 
 import '../../widgets/widgets.dart';
@@ -96,10 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ]),
           ),
           const SizedBox(
-            height: 40.0,
+            height: 30.0,
           ),
           SizedBox(
-            height: 400,
+            height: 500,
             width: double.infinity,
             child: FractionallySizedBox(
               heightFactor: 0.98,
@@ -110,23 +111,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return FractionallySizedBox(
-                        widthFactor: 0.7,
-                        child: Container(
-                          margin: const EdgeInsets.all(16),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            child: Image(
-                              image: AssetImage(
-                                movieDetails[index].imagePoster,
+                        widthFactor: 0.8,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MovieDetailsScreen(
+                                        movieDetails: movieDetails[index],
+                                      )),
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(16),
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
                               ),
-                              fit: BoxFit.fill,
+                            ),
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              child: Hero(
+                                tag: 'Details',
+                                child: Image(
+                                  image: AssetImage(
+                                    movieDetails[index].imagePoster,
+                                  ),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
                             ),
                           ),
                         ));
